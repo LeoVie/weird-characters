@@ -7,14 +7,17 @@ class Microsoft1252
     /** @var string */
     private $weird;
 
-    public function __construct(string $weird)
+    public function __construct(?string $weird)
     {
         $this->weird = $weird;
     }
 
     // https://stackoverflow.com/a/21491305
-    public function toUtf8(): string
+    public function toUtf8(): ?string
     {
+        if ($this->weird === null) {
+            return null;
+        }
         $mapping = [
             "\xC2\x80" => "\xE2\x82\xAC", // U+20AC Euro sign
             "\xC2\x82" => "\xE2\x80\x9A", // U+201A single low-9 quotation mark
